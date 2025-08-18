@@ -1,40 +1,24 @@
-import java.time.LocalDate;
-import java.util.*;
+import java.io.IOException;
+import java.util.Arrays;
+
 public class App {
-     public static Pessoa[] vetorDePessoas() {
-        return new Pessoa[]{
-            new Pessoa("João", LocalDate.of(1990, 1, 1)),
-            new Pessoa("Ana", LocalDate.of(1992, 2, 2)),
-            new Pessoa("Maria", LocalDate.of(1995, 5, 5)),
-            new Pessoa("Pedro", LocalDate.of(1993, 4, 4)),
-            new Pessoa("Lucas", LocalDate.of(1991, 6, 6)),
-            new Pessoa("Carlos", LocalDate.of(1988, 3, 3))
-        };
-    }
-    public static void main(String[] args)  {
-        Scanner leia = new Scanner(System.in);
+    public static void main(String[] args) {
+        try {
+            Integer[] numeros = BubbleSort.carregarArquivo("src/numeros_aleatorios.txt");
 
-        Pessoa[] vetorPessoas = vetorDePessoas();
-        System.out.println("Pessoas antes de Ordenar: " + Arrays.toString(vetorPessoas));
+            System.out.println("Vetor original: " + Arrays.toString(numeros));
 
-        BubbleSort<Pessoa> bSortPessoa = new BubbleSort<>();
-        bSortPessoa.sort(vetorPessoas);
-        System.out.println("Pessoa depois de ordenar: "+Arrays.toString(vetorPessoas));
-        
-        /*Random rand = new Random();
-        System.out.println("Tamanho do vetor:");
-        int n = leia.nextInt();
-        Integer[] vetor = new Integer[n];
-        for (int i=0;i<n;i++)
-            vetor[i] = rand.nextInt(100);
-
-        System.out.println("Antes de ordenar:"+ Arrays.toString(vetor) );    
-        BubbleSort<Integer> bsort = new BubbleSort<>();
-        Comparator<Integer> comparaInt = (a,b) -> a.compareTo(b);
-        bsort.sort(vetor, true);
-       
-        System.out.println("Depois de ordenar:"+ 
-                         Arrays.toString(vetor) ); 
-        */
+            Integer[] numerosCopia = Arrays.copyOf(numeros, numeros.length);
+            BubbleSort<Integer> bSortOtimizado = new BubbleSort<>();
+            System.out.println("\n--- Usando Bubble Sort Otimizado ---");
+            bSortOtimizado.sortOtimizado(numeros);
+            System.out.println("Vetor ordenado: " + Arrays.toString(numeros));
+            BubbleSort<Integer> bSortComum = new BubbleSort<>();
+            System.out.println("\n--- Usando Bubble Sort Comum ---");
+            bSortComum.sort(numerosCopia);
+            System.out.println("Vetor ordenado: " + Arrays.toString(numerosCopia));
+        } catch (IOException e) {
+            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
     }
 }
