@@ -10,16 +10,25 @@ public class App {
             
             Integer[] numeros = BubbleSort.carregarArquivo("src/numeros_aleatorios.txt");
             Integer[] numerosCopia = Arrays.copyOf(numeros, numeros.length);
+            Integer[] numerosCopia1 = Arrays.copyOf(numeros, numeros.length);
             BubbleSort<Integer> bsort = new BubbleSort<>();
             
             System.out.println("\nAntes de ordenar: " + Arrays.toString(numeros)+"\n");
             System.out.println("--- Bubble Sort Padrão ---");
-            System.out.println("Depois de ordenar (Padrão): " + Arrays.toString(numeros) + "\n");
             bsort.sort(numeros);
+            System.out.println("Depois de ordenar (Padrão): " + Arrays.toString(numeros) + "\n");
+            
         
             System.out.println("\n--- Bubble Sort Otimizado ---");
-            System.out.println("\nDepois de ordenar (Otimizado): " + Arrays.toString(numerosCopia) + "\n");
             bsort.sortOtimizado(numerosCopia);
+            System.out.println("\nDepois de ordenar (Otimizado): " + Arrays.toString(numerosCopia) + "\n");
+
+
+            SelectionSort selectionSort = new SelectionSort();
+            selectionSort.sort(numerosCopia1);
+            System.out.println("--- Selection Sort Otimizado ---");
+            System.out.println("Fases: " + selectionSort.getContFases() +"\nComparações: " + selectionSort.getContComparacao() + "\nTrocas: " + selectionSort.getContTroca() );
+            System.out.println("\nDepois de ordenar (Otimizado): " + Arrays.toString(numerosCopia1) + "\n");
         } catch (IOException e) {
             System.err.println("Erro ao ler o arquivo: " + e.getMessage());
         }
